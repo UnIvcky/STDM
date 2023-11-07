@@ -2,29 +2,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class MergeSort {
+public class MergeSort {
     public static void main(String[] args) {
         int[] arrA = {1,3,5,7,9,11};
         int[] arrB = {2,4,6,8,10,12,14};
-        
-        //merge(arrA, arrB);
-        
-        List<Integer> al = new ArrayList<Integer>();
-        int count = 0;
-        while(count <= 100_000_00) {
-            al.add((int)Math.floor(Math.random() * 100_000_00));
-            count++;
-        }
 
-
-        int[] c = new int[100_000_00];
+        int[] c = new int[100];
         for (int i = 0; i < c.length; i++) {
             c[i] = (int)Math.floor(Math.random() * c.length);
         };
-
+                
+        List<Integer> al = new ArrayList<Integer>();
+        int count = 0;
+        while(count <= 10_000) {
+            al.add((int)Math.floor(Math.random() * 10_000));
+            count++;
+        }
+        
         var start = System.nanoTime();
-        mergeSort(c);
-        //quickSort(al);
+        //mergeSort(c);
+        var test = _quickSort(al, (a,b)->a < b);
+        System.out.println(test);
         System.out.println((System.nanoTime() - start) );
     }
          
@@ -48,7 +46,7 @@ class MergeSort {
         return c;
     }
 
-    public static int[] mergeSort(int[] ara){
+    static int[] mergeSort(int[] ara){
         if(ara.length <= 1) return ara;
 
         int [] rechts, links;
@@ -62,14 +60,20 @@ class MergeSort {
         return merge(links, rechts);
     }
 
-    public static List<Integer> quickSort(List<Integer> li) {
+    static List<Integer> quickSort(List<Integer> li){
+        return quickSort(li, 0);
+    }
+
+    static List<Integer> quickSort(List<Integer> li,int depth) {
+        if(depth >= 100)
+            return li;
 
         if(li.size() <= 1 ) return li;
         
         List<Integer> links = new ArrayList<Integer>();
         List<Integer> rechts = new ArrayList<Integer>();
         
-        Integer pivot = li.remove(0);
+        int pivot = li.remove(0);
         for( Integer i : li) {
             if(i < pivot) {
                 links.add(i);
@@ -78,12 +82,38 @@ class MergeSort {
             }
         }
 
-        links = quickSort(links);
+        links = quickSort(links,depth + 1);
         links.add(pivot);
-        links.addAll(quickSort(rechts));
+        links.addAll(quickSort(rechts,depth + 1));
 
         return links;
 
     }
-    
+
+
+    public static <T> List<T> _quickSort(List<T> li,Closure<T> closure) {
+
+        if(li.size() <= 1 ) return li;
+        
+        List<T> links = new ArrayList<T>();
+        List<T> rechts = new ArrayList<T>();
+        
+        T pivot = li.remove(0);
+        for( T i : li) {
+            if(closure.run(i, pivot)) {
+                links.add(i);
+            } else {
+                rechts.add(i);
+            }
+        }
+
+        links = _quickSort(links,closure);
+        links.add(pivot);
+        links.addAll(_quickSort(rechts,closure));
+
+        return links;
+
+    }
+
+
 }

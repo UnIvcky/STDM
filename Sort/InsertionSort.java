@@ -32,11 +32,6 @@ public class InsertionSort {
 
     static void sort2 (int[] arr){
         int sw = arr.length / 4;
-        // while(sw < arr.length)
-        //     sw *= 2;
-
-        // sw --;
-        // sw/=2 ;
 
         for (; sw > 0; sw /= 2) {
             for (int i = sw; i < arr.length; i++) {
@@ -49,6 +44,7 @@ public class InsertionSort {
             } 
         }
     }
+
 
     static void LucasDreck (int [] arrayToSort) {
         for (int i = 1; i < arrayToSort.length; i++) {

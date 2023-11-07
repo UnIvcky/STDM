@@ -4,6 +4,9 @@ class BubbleSort {
 
     public static void main(String[] args) {
 
+        
+
+/* 
         int[] arr = new int[100000];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (int)Math.floor(Math.random() * arr.length);
@@ -12,7 +15,7 @@ class BubbleSort {
         var start = System.nanoTime();
         bubble(arr);
         System.out.println(System.nanoTime() - start);
-        
+  */      
     }
 
 
@@ -27,4 +30,7 @@ class BubbleSort {
             }   
         }
     }
+
+
+
 }
