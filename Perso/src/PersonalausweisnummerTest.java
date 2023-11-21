@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class PersonalausweisnummerTest {
 
-    @Test
+    @CSVReader
     public void testKonstruktor() {
         // a valid Example
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
@@ -16,7 +16,7 @@ public class PersonalausweisnummerTest {
         assertNotNull(p);
     }
 
-    @Test
+    @CSVReader
     public void testGebDat() {
         // a valid Example
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
@@ -26,7 +26,7 @@ public class PersonalausweisnummerTest {
         assertEquals(LocalDate.of(2002, 8, 12), p.getGebDat());
     }
 
-    @Test
+    @CSVReader
     public void testAblDat() {
         // a valid Example
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
@@ -36,7 +36,7 @@ public class PersonalausweisnummerTest {
         assertEquals(LocalDate.of(2026, 10, 31), p.getAblDat());
     }
 
-    @Test
+    @CSVReader
     public void testGetSerial() {
         // a valid Example
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
@@ -46,7 +46,7 @@ public class PersonalausweisnummerTest {
         assertEquals("T22000129", p.getSerial());
     }
 
-    @Test
+    @CSVReader
     public void testKonstruktor2() {
         // a valid Example
         String[] lines = {"IDD<<T220001293<<<<<<<<<<<<<<<",
@@ -56,7 +56,7 @@ public class PersonalausweisnummerTest {
         assertNotNull(p);
     }
 
-    @Test
+    @CSVReader
     public void testFormat2() {
         String[] lines = {"IDD<<T220001293<<<<<<<<<<<<<<<",
                 "6408125<2010315D<<<<<<<<<<<<<4"};
@@ -69,7 +69,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testFormat3() {
         String line1 = "IDD<<L7HOL22F18<<<<<<<<<<<<<<<";
         String line2 = "6402156<2010315D<<<<<<<<<<<<<0";
@@ -83,7 +83,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testChecksum1() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6408123<2010315D<<<<<<<<<<<<<4";
@@ -97,7 +97,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testChecksum2() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6408125<2010312D<<<<<<<<<<<<<4";
@@ -111,7 +111,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testChecksum3() {
         String line1 = "IDD<<T220001291<<<<<<<<<<<<<<<";
         String line2 = "6408125<2010315D<<<<<<<<<<<<<4";
@@ -125,7 +125,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testChecksum4() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6408125<2010315D<<<<<<<<<<<<<3";
@@ -140,7 +140,7 @@ public class PersonalausweisnummerTest {
     }
 
 
-    @Test
+    @CSVReader
     public void testFormat1() {
         String line1 = "IDD<<L7H4L22F18<<<<<<<<<<<<<<";
         String line2 = "6403304<2010315D<<<<<<<<<<<<0";
@@ -154,7 +154,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testChecksum5() {
         String line1 = "IDD<<T22000129O<<<<<<<<<<<<<<<";
         String line2 = "6408125<2010315D<<<<<<<<<<<<<3";
@@ -168,7 +168,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testChecksum6() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6408125<2010315D<<<<<<<<<<<<<O";
@@ -182,7 +182,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testGebDat2() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6408125<2010315D<<<<<<<<<<<<<4";
@@ -192,7 +192,7 @@ public class PersonalausweisnummerTest {
     }
 
 
-    @Test
+    @CSVReader
     public void testGebDat3() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "640B125<2010315D<<<<<<<<<<<<<4";
@@ -206,7 +206,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testGebDat4() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6413121<2010315D<<<<<<<<<<<<<4";
@@ -219,7 +219,7 @@ public class PersonalausweisnummerTest {
             assertEquals(PersoDateException.class, e.getClass());
         }
     }
-    @Test
+    @CSVReader
     public void testGebDat4a() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6403326<2010315D<<<<<<<<<<<<<4";
@@ -233,7 +233,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testGebDat5() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6404312<2010315D<<<<<<<<<<<<<8";
@@ -247,7 +247,7 @@ public class PersonalausweisnummerTest {
         }
     }
 
-    @Test
+    @CSVReader
     public void testGebDat6() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6402293<2010315D<<<<<<<<<<<<<0";
@@ -256,7 +256,7 @@ public class PersonalausweisnummerTest {
         assertEquals(LocalDate.of(1964, 2, 29), p.getGebDat());
     }
 
-    @Test
+    @CSVReader
     public void testGebDat7() {
         String line1 = "IDD<<T220001293<<<<<<<<<<<<<<<";
         String line2 = "6302290<2010315D<<<<<<<<<<<<<0";
