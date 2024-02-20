@@ -1,0 +1,9 @@
+
+-- SQL Projekt | Warenwirtschaftssystem --
+
+Wir sind eine Firma, die Produkte an Kunden verkauft,
+die Produkte werden in unserem Lagerhaus gelagert jedes Produkt hat einen bestimmten Standort im Lagerhaus.
+Einem Produkt gehören Eigenschaften an, [Menge, Lieferant, Preis ... ].
+In durch Kunden getätigten Bestellungen ist dieses Produkt hinterlegt.
+
+Sollte die Menge eines Produktes einen Wert unterschreiten, so wird automatisch bei dem Lieferanten eine neue Bestellung für das Produkt aufgegeben.
