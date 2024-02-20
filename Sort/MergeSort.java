@@ -14,15 +14,14 @@ public class MergeSort {
                 
         List<Integer> al = new ArrayList<Integer>();
         int count = 0;
-        while(count <= 10_000) {
-            al.add((int)Math.floor(Math.random() * 10_000));
+        while(count <= 100_000_000) {
+            al.add((int)Math.floor(Math.random() * 100_000_000));
             count++;
         }
         
         var start = System.nanoTime();
         //mergeSort(c);
-        var test = _quickSort(al, (a,b)->a < b);
-        System.out.println(test);
+        System.out.println(quickSort(al));
         System.out.println((System.nanoTime() - start) );
     }
          

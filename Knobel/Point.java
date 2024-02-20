@@ -26,13 +26,13 @@ public class Point {
         this.y = y;
     }
 
-    public static double calcDistance(Point a ,Point b){
+    public static double calcDistance(Point a ,Point b) {
         return Math.sqrt(
             Math.pow((b.x - a.x),2) + Math.pow((b.y - a.y),2) 
         );
     }
 
-    public static Distance getSmallestDistanceBruteforce(List<Point> points){
+    public static Distance getSmallestDistanceBruteforce(List<Point> points) {
         Distance distance = new Distance();
         for (int i = 0; i < points.size(); i++) {
             for (int j = 0; j < points.size(); j++) {
@@ -51,7 +51,6 @@ public class Point {
     public static Distance getSmallestDistanceSweep(List<Point> points) {
 
         points.sort((p1, p2) -> (int)(p1.x - p2.x));
-        System.out.println(points.size());
         System.out.println(Point.getSmallestDistanceBruteforce(points).distance);
 
         int ptr = 0;
@@ -63,7 +62,7 @@ public class Point {
 
         for(int i = 2; i < points.size(); i++) {
             
-            p2 = points.get(i);
+             p2 = points.get(i);
             
             int j = 0;
             ArrayList<Point> backtrack_points = new ArrayList<>();
@@ -72,9 +71,7 @@ public class Point {
                 backtrack_points.add(points.get(k));
             }
             
-            System.out.println("------");
-            System.out.println(Point.getSmallestDistanceBruteforce(backtrack_points).distance);
-            
+            System.out.println(Point.getSmallestDistanceBruteforce(backtrack_points).distance); 
             
         }
         
@@ -82,8 +79,5 @@ public class Point {
 
         return null;
     }
-
-
-    
 
 }
