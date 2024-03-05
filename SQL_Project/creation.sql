@@ -2,7 +2,6 @@
 --DROP DATABASE InventarIlluminaten;
 --CREATE DATABASE InventarIlluminaten;
 
-
 CREATE TABLE Locations (
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
     location nvarchar(255) -- z.B. A.105
@@ -42,16 +41,17 @@ CREATE TABLE Orders (
     Customer_ID int, -- fk Customer.ID 
     Product_ID int, -- fk Products.ID
     
-    FOREIGN KEY(Customer_ID) REFERENCES Customers(ID)
+    FOREIGN KEY(Customer_ID) REFERENCES Customer(ID)
     FOREIGN KEY(Product_ID) REFERENCES Products(ID)
 );
 
 CREATE TABLE SupplierOrders (
-    ID int AUTOINCREMENT, 
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
     Product_ID int, -- fk -- Products.ID
+    quantity int,
     Completed bit,
 
-    FOREIGN KEY(Product_ID) REFERENCES )
+    FOREIGN KEY(Product_ID) REFERENCES Products(ID)
 );
 
 INSERT INTO Locations(location)
@@ -109,23 +109,23 @@ VALUES(3, 2);
 INSERT INTO Orders(Customer_ID, Product_ID)
 VALUES(2, 4);
 
-INSERT INTO SupplierOrders(Product_ID, Completed) 
-VALUES(1,1);
-INSERT INTO SupplierOrders(Product_ID, Completed) 
-VALUES(1,1);
-INSERT INTO SupplierOrders(Product_ID, Completed) 
-VALUES(2,0);
-INSERT INTO SupplierOrders(Product_ID, Completed) 
-VALUES(1,0);
+INSERT INTO SupplierOrders(Product_ID, quantity, Completed) 
+VALUES(1,5,1);
+INSERT INTO SupplierOrders(Product_ID, quantity, Completed) 
+VALUES(1,3,1);
+INSERT INTO SupplierOrders(Product_ID, quantity, Completed) 
+VALUES(2,4,0);
+INSERT INTO SupplierOrders(Product_ID, quantity, Completed) 
+VALUES(1,8,0);
 
 CREATE TRIGGER tr_reorder_Product
     AFTER DELETE ON Storage
     WHEN(  
-        (SELECT COUNT(*) from Storage WHERE Product_ID = NEW.Product_ID) < 10
+        (SELECT COUNT(*) from Storage WHERE Product_ID = old.Product_ID) < 10
     )
 BEGIN
-    INSERT INTO SupplierOrders(Product_ID, Completed) 
-	VALUES ((SELECT product_ID from Products where ID = NEW.Product_ID), 0);
+    INSERT INTO SupplierOrders(Product_ID, quantity, Completed) 
+	VALUES ((SELECT ID from Products where ID = old.Product_ID), 10, 0);
 
 END;
 
@@ -141,6 +141,21 @@ BEGIN
                 );
 END;
 
-CREATE VIEW View_Customers AS 
-    SELECT * FROM CUSTOMERS
+CREATE VIEW vw_ProductTotal AS 
+    SELECT p.id, p.productname, count(s.product_id) AS quantity 
+    FROM Products p 
+    LEFT JOIN Storage s 
+    ON p.id = s.product_id 
+    GROUP by s.product_id;
 
+CREATE VIEW vw_CriticalStorage AS 
+    SELECT *
+    FROM vw_ProductTotal
+    WHERE quantity < 15;
+
+CREATE view vw_CustomerOrderQuantity AS
+    SELECT c.id, c.GivenName, o.Product_id, p.ProductName, count(o.id) as quantity 
+    FROM Customer c
+    JOIN Orders o ON c.id = o.customer_id
+    JOIN Products p ON p.id = o.Product_id
+    GROUP By c.id, o.Product_id;
